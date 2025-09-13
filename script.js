@@ -6,10 +6,11 @@ container.style.cssText = `
 	align-items:center;
 	gap: 1.5rem;
 
+
 `
 
 const wrapper = document.createElement("div")
-wrapper.classList.add("wrapper")
+
 
 
 const header = document.createElement("h1");
@@ -26,6 +27,8 @@ const resetButton = document.createElement("button");
 resetButton.textContent = "New Grid";
 resetButton.style.cssText = `
 
+	padding: 10px;
+	font-size:1.5rem;
 
 `
 
@@ -47,7 +50,7 @@ function defaultGrid(size)
 		const cell = document.createElement("div");
 		cell.classList.add("grid-square");
 		cell.style.cssText = `
-			border:1px solid green; 
+			border:1px solid black; 
 			flex: 0 0 calc(100% / ${size});
 			height: calc(100% / ${size});
 			box-sizing : border-box`;
@@ -64,7 +67,31 @@ resetButton.addEventListener('click', () =>
 {
 	wrapper.textContent = "";
 	const dynamicSize = parseInt(prompt("Enter your desired grid size"));
+
+	if (dynamicSize < 4 || dynamicSize > 100 )
+	{
+		alert("Enter a valid size between 4 and 100");
+		return
+	}
+
 	defaultGrid(dynamicSize);
 
 })
 
+function randomRgb()
+{
+	const red = Math.floor(Math.random() * 256)
+	const green = Math.floor(Math.random() * 256)
+	const blue = Math.floor(Math.random() * 256)
+
+	return {red, green, blue};
+}
+
+wrapper.addEventListener('mouseover', event => 
+{
+
+	const box = event.target;
+	const {red, green, blue} = randomRgb(); 
+	box.style.background = `rgb(${red}, ${green}, ${blue})`;
+})
+ 
